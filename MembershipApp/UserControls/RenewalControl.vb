@@ -10,6 +10,9 @@ Namespace UserControls
         Private isEditMode As Boolean = False
 
         Private Sub RenewalControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+            ' Skip initialization in design mode
+            If Me.DesignMode Then Return
+
             LoadStates(cmbState)
             LoadMemberTypes(cmbMemberType)
             LoadStates(cmbAddState)
@@ -261,7 +264,7 @@ Namespace UserControls
             Dim value = cmb.SelectedValue
             If TypeOf value Is DataRowView Then
                 Dim rowView = CType(value, DataRowView)
-                Return If(rowView(columnName) IsNot Nothing AndAlso Not IsDBNull(rowView(columnName)), 
+                Return If(rowView(columnName) IsNot Nothing AndAlso Not IsDBNull(rowView(columnName)),
                          Convert.ToInt32(rowView(columnName)), 0)
             Else
                 Return If(value IsNot Nothing, Convert.ToInt32(value), 0)

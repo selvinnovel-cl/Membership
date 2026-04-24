@@ -10,6 +10,9 @@ Namespace UserControls
         Private isEditMode As Boolean = False
 
         Private Sub MembersControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+            ' Skip initialization in design mode
+            If Me.DesignMode Then Return
+
             LoadStates(cmbState)
             LoadMemberTypes(cmbMemberType)
             LoadStates(cmbAddState)
@@ -311,6 +314,7 @@ Namespace UserControls
                 Return If(value IsNot Nothing, Convert.ToInt32(value), 0)
             End If
         End Function
+
 
 #End Region
 
