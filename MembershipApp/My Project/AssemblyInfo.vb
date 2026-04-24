@@ -7,29 +7,4 @@ Imports System.Runtime.InteropServices
 ' associated with an assembly.
 
 ' Review the values of the assembly attributes
-
-<Assembly: AssemblyTitle("MembershipApp")>
-<Assembly: AssemblyDescription("Membership Management System")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("MembershipApp")>
-<Assembly: AssemblyCopyright("Copyright ©  2026")>
-<Assembly: AssemblyTrademark("")>
-
-<Assembly: ComVisible(False)>
-
-'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("a1b2c3d4-e5f6-7890-abcd-1234567890ab")>
-
-' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version
-'      Build Number
-'      Revision
-'
-' You can specify all the values or you can default the Build and Revision Numbers
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")>
-
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+' Note: Assembly attributes are now managed in the project file (.vbproj) for .NET 5+

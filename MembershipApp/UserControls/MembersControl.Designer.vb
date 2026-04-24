@@ -237,31 +237,31 @@ Namespace UserControls
 
             AddLabelAndCtrl(Me.lblMemberNumber, "Member Number", col1X, y, Me.txtMemberNumber, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblApplicationNo, "Application No", col2X, y, Me.txtApplicationNo, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblMemberName, "Member Name *", col1X, y, Me.txtMemberName, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblMobile, "Mobile No", col2X, y, Me.txtMobile, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblAddress1, "Address Line 1", col1X, y, Me.txtAddress1, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblAadhar, "Aadhar Number", col2X, y, Me.txtAadhar, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblAddress2, "Address Line 2", col1X, y, Me.txtAddress2, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblDOB, "DOB", col2X, y, Me.dtpDOB, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblAddress3, "Address Line 3", col1X, y, Me.txtAddress3, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblGender, "Gender", col2X, y, Me.cmbGender, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblPincode, "Pincode", col1X, y, Me.txtPincode, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblProfession, "Profession", col2X, y, Me.txtProfession, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblRegisteredThrough, "Registered Through", col1X, y, Me.cmbRegisteredThrough, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblRegisteredOn, "Registered On", col2X, y, Me.dtpRegisteredOn, col2X + labelW, y, inputW)
-            y += rowH + 20
+            y = y + rowH + 20
 
             Me.btnSaveMember.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
             Me.btnSaveMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat

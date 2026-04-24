@@ -77,8 +77,8 @@ Namespace UserControls
 
         Private Sub LoadMembers()
             Try
-                Dim stateId As Integer = If(cmbState.SelectedValue IsNot Nothing, Convert.ToInt32(cmbState.SelectedValue), 0)
-                Dim memberTypeId As Integer = If(cmbMemberType.SelectedValue IsNot Nothing, Convert.ToInt32(cmbMemberType.SelectedValue), 0)
+                Dim stateId As Integer = GetComboBoxIntValue(cmbState, "StateId")
+                Dim memberTypeId As Integer = GetComboBoxIntValue(cmbMemberType, "MemberTypeId")
                 Dim search As String = txtSearch.Text.Trim()
 
                 Dim dt As DataTable = DBHelper.ExecuteDataTable(
@@ -244,8 +244,8 @@ Namespace UserControls
             If Not ValidateAddForm() Then Return
 
             Try
-                Dim stateId As Integer = Convert.ToInt32(cmbAddState.SelectedValue)
-                Dim memberTypeId As Integer = Convert.ToInt32(cmbAddMemberType.SelectedValue)
+                Dim stateId As Integer = GetComboBoxIntValue(cmbAddState, "StateId")
+                Dim memberTypeId As Integer = GetComboBoxIntValue(cmbAddMemberType, "MemberTypeId")
 
                 DBHelper.ExecuteNonQuery(
                     "sp_SaveMember",
@@ -298,6 +298,19 @@ Namespace UserControls
         Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
             ShowMainPanel()
         End Sub
+
+        Private Function GetComboBoxIntValue(cmb As ComboBox, columnName As String) As Integer
+            If cmb.SelectedValue Is Nothing Then Return 0
+
+            Dim value = cmb.SelectedValue
+            If TypeOf value Is DataRowView Then
+                Dim rowView = CType(value, DataRowView)
+                Return If(rowView(columnName) IsNot Nothing AndAlso Not IsDBNull(rowView(columnName)),
+                         Convert.ToInt32(rowView(columnName)), 0)
+            Else
+                Return If(value IsNot Nothing, Convert.ToInt32(value), 0)
+            End If
+        End Function
 
 #End Region
 

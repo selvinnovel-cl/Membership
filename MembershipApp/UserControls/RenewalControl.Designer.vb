@@ -191,19 +191,19 @@ Namespace UserControls
 
             AddLabelAndCtrl(Me.lblAddState, "State *", col1X, y, Me.cmbAddState, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblAddMemberType, "Member Type *", col2X, y, Me.cmbAddMemberType, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblMemberNumber, "Member No *", col1X, y, Me.txtMemberNumber, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblMemberName, "Member Name", col2X, y, Me.txtMemberName, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblReceiptType, "Receipt Type", col1X, y, Me.cmbReceiptType, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblReceiptNo, "Receipt No", col2X, y, Me.txtReceiptNo, col2X + labelW, y, inputW)
-            y += rowH
+            y = y + rowH
 
             AddLabelAndCtrl(Me.lblReceiptDate, "Receipt Date", col1X, y, Me.dtpReceiptDate, col1X + labelW, y, inputW)
             AddLabelAndCtrl(Me.lblAmount, "Amount *", col2X, y, Me.txtAmount, col2X + labelW, y, inputW)
-            y += rowH + 20
+            y = y + rowH + 20
 
             Me.btnSaveRenewal.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
             Me.btnSaveRenewal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
