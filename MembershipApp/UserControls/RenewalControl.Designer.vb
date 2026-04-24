@@ -126,12 +126,11 @@ Namespace UserControls
             Me.btnRefresh.Text = "Refresh"
             Me.btnRefresh.UseVisualStyleBackColor = False
 
-            Me.btnAddRenewal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
             Me.btnAddRenewal.BackColor = System.Drawing.Color.FromArgb(39, 174, 96)
             Me.btnAddRenewal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
             Me.btnAddRenewal.Font = New System.Drawing.Font("Segoe UI", 9.0!, FontStyle.Bold)
             Me.btnAddRenewal.ForeColor = System.Drawing.Color.White
-            Me.btnAddRenewal.Location = New System.Drawing.Point(1040, 37)
+            Me.btnAddRenewal.Location = New System.Drawing.Point(815, 37)
             Me.btnAddRenewal.Size = New System.Drawing.Size(140, 28)
             Me.btnAddRenewal.Text = "+ Add Renewal"
             Me.btnAddRenewal.UseVisualStyleBackColor = False

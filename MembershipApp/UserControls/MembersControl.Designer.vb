@@ -89,7 +89,7 @@ Namespace UserControls
             mainPanel.Dock = DockStyle.Fill
             mainPanel.Location = New Point(0, 0)
             mainPanel.Name = "mainPanel"
-            mainPanel.Size = New Size(1192, 609)
+            mainPanel.Size = New Size(1200, 900)
             mainPanel.TabIndex = 1
             ' 
             ' dgvMembers
@@ -109,6 +109,7 @@ Namespace UserControls
             dgvMembers.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
             dgvMembers.ColumnHeadersHeight = 35
             dgvMembers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
+            dgvMembers.Dock = DockStyle.Fill
             dgvMembers.EnableHeadersVisualStyles = False
             dgvMembers.Location = New Point(0, 80)
             dgvMembers.MultiSelect = False
@@ -118,7 +119,7 @@ Namespace UserControls
             dgvMembers.RowHeadersWidth = 62
             dgvMembers.RowTemplate.Height = 28
             dgvMembers.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvMembers.Size = New Size(1192, 529)
+            dgvMembers.Size = New Size(1200, 820)
             dgvMembers.TabIndex = 0
             ' 
             ' pnlFilters
@@ -133,10 +134,10 @@ Namespace UserControls
             pnlFilters.Controls.Add(btnSearch)
             pnlFilters.Controls.Add(btnRefresh)
             pnlFilters.Controls.Add(btnAddMember)
-            pnlFilters.Dock = DockStyle.Fill
+            pnlFilters.Dock = DockStyle.Top
             pnlFilters.Location = New Point(0, 0)
             pnlFilters.Name = "pnlFilters"
-            pnlFilters.Size = New Size(1192, 609)
+            pnlFilters.Size = New Size(1200, 80)
             pnlFilters.TabIndex = 1
             ' 
             ' lblState
@@ -218,15 +219,14 @@ Namespace UserControls
             ' 
             ' btnAddMember
             ' 
-            btnAddMember.Anchor = AnchorStyles.Top Or AnchorStyles.Right
             btnAddMember.BackColor = Color.FromArgb(CByte(39), CByte(174), CByte(96))
             btnAddMember.FlatStyle = FlatStyle.Flat
             btnAddMember.Font = New Font("Segoe UI", 9.0F, FontStyle.Bold)
             btnAddMember.ForeColor = Color.White
-            btnAddMember.Location = New Point(2042, 37)
+            btnAddMember.Location = New Point(815, 37)
             btnAddMember.Name = "btnAddMember"
             btnAddMember.Size = New Size(130, 28)
-            btnAddMember.TabIndex = 8
+            btnAddMember.TabIndex = 9
             btnAddMember.Text = "+ Add Member"
             btnAddMember.UseVisualStyleBackColor = False
             ' 
@@ -235,9 +235,10 @@ Namespace UserControls
             addMemberPanel.BackColor = Color.White
             addMemberPanel.Controls.Add(pnlAddHeader)
             addMemberPanel.Controls.Add(pnlAddForm)
+            addMemberPanel.Dock = DockStyle.Fill
             addMemberPanel.Location = New Point(0, 0)
             addMemberPanel.Name = "addMemberPanel"
-            addMemberPanel.Size = New Size(1158, 609)
+            addMemberPanel.Size = New Size(1200, 900)
             addMemberPanel.TabIndex = 0
             addMemberPanel.Visible = False
             ' 
@@ -249,7 +250,7 @@ Namespace UserControls
             pnlAddHeader.Dock = DockStyle.Top
             pnlAddHeader.Location = New Point(0, 0)
             pnlAddHeader.Name = "pnlAddHeader"
-            pnlAddHeader.Size = New Size(1158, 50)
+            pnlAddHeader.Size = New Size(1200, 50)
             pnlAddHeader.TabIndex = 1
             ' 
             ' lblAddTitle
@@ -279,10 +280,11 @@ Namespace UserControls
             pnlAddForm.AutoScroll = True
             pnlAddForm.Controls.Add(btnSaveMember)
             pnlAddForm.Controls.Add(btnCancelMember)
-            pnlAddForm.Location = New Point(0, 50)
+            pnlAddForm.Dock = DockStyle.Fill
+            pnlAddForm.Location = New Point(0, 0)
             pnlAddForm.Name = "pnlAddForm"
             pnlAddForm.Padding = New Padding(30)
-            pnlAddForm.Size = New Size(1155, 559)
+            pnlAddForm.Size = New Size(1200, 900)
             pnlAddForm.TabIndex = 0
             ' 
             ' btnSaveMember
@@ -546,7 +548,7 @@ Namespace UserControls
             Controls.Add(mainPanel)
             Controls.Add(addMemberPanel)
             Name = "MembersControl"
-            Size = New Size(1192, 609)
+            Size = New Size(1200, 900)
             mainPanel.ResumeLayout(False)
             CType(dgvMembers, ISupportInitialize).EndInit()
             pnlFilters.ResumeLayout(False)
