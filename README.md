@@ -1,117 +1,143 @@
-# Membership Management System (VB.NET)
+# Membership Management System
 
-A Windows Forms desktop application for managing organizational membership, renewals, and reports. Built in VB.NET targeting .NET 8 (Windows) with SQL Server as the backing store.
-
-This is a VB.NET port of the original C# Membership Management System and preserves the same architecture: a single `MainForm` that hosts swappable `UserControl`s, a centralized `DBHelper` data-access layer, and parameterized stored procedures for every database operation.
+A Windows Forms desktop application built with **VB.NET (.NET 8)** and **SQL Server** for managing membership records, renewals, and reports.
 
 ---
 
 ## Features
 
-- **Authentication** – role-based login (`Administrator` / `User`) backed by the `Users` table.
-- **Members** – full CRUD with filter by State / Member Type and free-text search across name, member number, application number, mobile, and Aadhar.
-- **Renewals** – add and view renewal receipts linked to members, with receipt type, number, date, and amount.
-- **Reports** – generate Member List and Renewal List reports over a selectable date range, display in a grid, and export to CSV.
+### Login
+- Username & password authentication against SQL Server (`sp_AuthenticateUser`)
+- Role-based session (`Administrator` / `User`)
+- Press **Enter** in the password field to log in
 
----
-
-## Prerequisites
-
-| Component | Version |
+### Members Tab
+| Feature | Detail |
 |---|---|
-| Visual Studio | 2022 (17.8+) with the **.NET desktop development** workload |
-| .NET SDK | .NET 8 SDK |
-| SQL Server | 2005 or later (Express / Developer / Standard) — script is 2005-compatible |
-| OS | Windows 10 / 11 |
+| Member grid | State Name, Member Type, Member No, Application No, Member Name, Address (3 lines), Pincode, Mobile, Aadhar, DOB/Age, Gender, Profession, Registered Through, Registered On |
+| Filtering | State dropdown, Member Type dropdown, free-text Search |
+| Add Member | Click **+ Add Member** to open the add/edit form |
+| Edit Member | Double-click any grid row to open the edit form pre-populated |
+| Save / Cancel | Calls `sp_SaveMember` (INSERT for new, UPDATE for existing) |
+
+### Renewal Tab
+| Feature | Detail |
+|---|---|
+| Renewal grid | State Name, Member Type, Member No, Member Name, Receipt Type, Receipt No, Receipt Date, Amount |
+| Filtering | State dropdown, Member Type dropdown, free-text Search |
+| Add Renewal | Click **+ Add Renewal** to open the add/edit form |
+| Edit Renewal | Double-click any grid row to open the edit form |
+| Save / Cancel | Calls `sp_SaveRenewal` |
+
+### Reports Tab
+| Feature | Detail |
+|---|---|
+| Report types | Member List, Renewal List |
+| Date range | From Date / To Date filter |
+| Generate | Loads data into grid with title and record count |
+| Export | Save grid to a CSV file |
 
 ---
 
-## Setup
+## Tech Stack
 
-### 1. Create the database
+| Component | Technology |
+|---|---|
+| Language | VB.NET |
+| Framework | .NET 8.0 Windows |
+| UI | Windows Forms |
+| Database | SQL Server 2019 / 2022 |
+| Data Access | ADO.NET — parameterized stored procedures via `DBHelper.vb` |
+| IDE | Visual Studio 2022 |
 
-Open SQL Server Management Studio (SSMS) and connect to your instance, then run:
+---
+
+## Project Structure
 
 ```
-MembershipApp\Database\MembershipDB_Setup.sql
+MembershipApp.sln
+└── MembershipApp/
+    ├── Program.vb                              ← Entry point (STAThread Main)
+    ├── MainForm.vb / .Designer.vb             ← Host form with full-size panel
+    ├── App.config                             ← Connection string
+    ├── Data/
+    │   ├── DBHelper.vb                        ← Centralised ADO.NET helper
+    │   └── SessionManager.vb                 ← Runtime user context
+    ├── UserControls/
+    │   ├── LoginControl.vb / .Designer.vb
+    │   ├── DashboardControl.vb / .Designer.vb ← TabControl host + header bar
+    │   ├── MembersControl.vb / .Designer.vb   ← mainPanel + addMemberPanel
+    │   ├── RenewalControl.vb / .Designer.vb   ← mainPanel + addRenewalPanel
+    │   └── ReportsControl.vb / .Designer.vb   ← Report grid + CSV export
+    └── Database/
+        └── MembershipDB_Setup.sql             ← Full DB setup (tables + SPs + seed data)
 ```
 
-The script creates a database named `MembershipDB`, all tables (`Users`, `States`, `MemberTypes`, `Members`, `Renewals`), all stored procedures, and seed data (states, member types, sample members, sample renewals, and two login accounts).
+---
 
-### 2. Configure the connection string
+## Quick Start
 
-Open `MembershipApp\App.config`. The default connection string points to a local default instance using Windows Authentication:
+### 1. Database Setup
 
-```xml
-<connectionStrings>
-  <add name="MembershipDB"
-       connectionString="Data Source=(local);Initial Catalog=MembershipDB;Integrated Security=True;TrustServerCertificate=True"
-       providerName="System.Data.SqlClient" />
-</connectionStrings>
+Open **SSMS** and run against `master`:
+
+```
+MembershipApp/Database/MembershipDB_Setup.sql
 ```
 
-Adjust `Data Source` to your instance name (for example `.\SQLEXPRESS`) or switch to SQL authentication by replacing `Integrated Security=True` with `User ID=...;Password=...`.
+This creates the database `MembershipDB` with all tables, stored procedures and seed data.
 
-### 3. Open and run
-
-1. Open `MembershipApp.sln` in Visual Studio 2022.
-2. Restore NuGet packages (happens automatically on first build — `System.Data.SqlClient` and `System.Configuration.ConfigurationManager` are referenced by the project).
-3. Press **F5** to build and run.
-
-### Default login credentials
+**Default login credentials:**
 
 | Username | Password | Role |
 |---|---|---|
 | `admin` | `admin123` | Administrator |
-| `user`  | `user123`  | User |
+| `user` | `user123` | User |
 
----
+### 2. Update Connection String
 
-## Project structure
+Edit `MembershipApp/App.config`:
 
+```xml
+<add name="MembershipDB"
+     connectionString="Server=YOUR_SERVER;Uid=YOUR_USER;Pwd=YOUR_PASSWORD;database=MembershipDB;"
+     providerName="System.Data.SqlClient"/>
 ```
-MembershipApp/
-├── MembershipApp.sln
-├── README.md
-└── MembershipApp/
-    ├── MembershipApp.vbproj        SDK-style project, net8.0-windows
-    ├── App.config                  Connection string
-    ├── Program.vb                  Entry point
-    ├── MainForm.vb / .Designer.vb  Host form — swaps Login/Dashboard
-    │
-    ├── Data/
-    │   ├── DBHelper.vb             ADO.NET helper: ExecuteDataTable / NonQuery / Scalar
-    │   └── SessionManager.vb       Static session holder (UserId, Role, etc.)
-    │
-    ├── UserControls/
-    │   ├── LoginControl.vb         Username/password form
-    │   ├── DashboardControl.vb     Header + TabControl (Members / Renewal / Reports)
-    │   ├── MembersControl.vb       Member list + add/edit panel (panel-flip)
-    │   ├── RenewalControl.vb       Renewal list + add/edit panel (panel-flip)
-    │   └── ReportsControl.vb       Date-range reports + CSV export
-    │
-    └── Database/
-        └── MembershipDB_Setup.sql  Full DB setup: tables + SPs + seed data
+
+Common server values: `.\SQLEXPRESS`, `.\SQL2022`, `(local)`, or use `Integrated Security=True` to skip username/password.
+
+### 3. Build & Run
+
+Open `MembershipApp.sln` in **Visual Studio 2022** and press **F5**, or from the command line:
+
+```bash
+cd MembershipApp
+dotnet restore
+dotnet run
 ```
 
 ---
 
-## Architecture overview
+## Stored Procedures
 
-**Single host form + UserControls.** `MainForm` is maximized and fills its client area with one `MainPanel`. `ShowLogin()` and `ShowDashboard()` dispose the current control and instantiate the next one. This keeps navigation simple and avoids MDI overhead.
-
-**Panel-flip add/edit.** The Members and Renewal controls each contain two `DockStyle.Fill` panels — a list panel (grid + filters + "Add" button) and an edit panel (form). Toggling `.Visible` switches views without any modal dialogs, matching the UX of the original C# build.
-
-**Centralized data access.** `DBHelper` exposes three methods — `ExecuteDataTable`, `ExecuteNonQuery`, `ExecuteScalar` — all of which take a stored procedure name and a `SqlParameter()` array. Every database call in the app goes through these, and every call uses `CommandType.StoredProcedure` with `SqlParameter` binding, so user input is never concatenated into SQL.
-
-**Upsert stored procedures.** `sp_SaveMember` and `sp_SaveRenewal` accept the primary key as a parameter. If it equals `0`, they `INSERT`; otherwise they `UPDATE`. This keeps the UI code symmetric between add and edit flows.
-
-**Session state.** `SessionManager` is a `Shared`-only class that holds the current user's id, name, and role after login. Controls read from it directly rather than passing the session around.
+| Procedure | Purpose |
+|---|---|
+| `sp_AuthenticateUser` | Login validation |
+| `sp_GetStates` | Populate State dropdowns |
+| `sp_GetMemberTypes` | Populate Member Type dropdowns |
+| `sp_GetMembers` | List members with optional State/Type/Search filters |
+| `sp_SaveMember` | INSERT (MemberId=0) or UPDATE member |
+| `sp_GetRenewals` | List renewals with optional filters |
+| `sp_SaveRenewal` | INSERT (RenewalId=0) or UPDATE renewal |
+| `sp_Report_MemberList` | Member list report by registered date range |
+| `sp_Report_RenewalList` | Renewal list report by receipt date range |
 
 ---
 
-## Notes
+## Architecture Notes
 
-- The app targets `net8.0-windows`. Visual Studio 2005 cannot open SDK-style projects, so a current Visual Studio is required even though the SQL script remains SQL Server 2005-compatible.
-- The reports module formats currency with the ₹ symbol and exports with proper CSV quoting (values containing commas, quotes, or newlines are escaped correctly).
-- Passwords in the seed data are stored in plain text for demo simplicity. For production, replace `sp_AuthenticateUser` and the Users table with a hashed-password scheme (for example PBKDF2 / bcrypt).
+- **DBHelper** — static helper; all DB calls use parameterized stored procedures (SQL injection safe)
+- **SessionManager** — shared properties hold the logged-in user's ID, name and role
+- **MainForm.MainPanel** — hosts `LoginControl` on startup; swaps to `DashboardControl` after login
+- **DashboardControl** — header bar (app title, username, Logout button) + `TabControl` (Members, Renewal, Reports)
+- **Panel flip pattern** — each content UserControl contains `mainPanel` (grid view) and `addPanel` (form view); toggled with `BringToFront()` and `Visible`

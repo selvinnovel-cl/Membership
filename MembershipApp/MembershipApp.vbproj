@@ -5,7 +5,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>MembershipApp</RootNamespace>
     <AssemblyName>MembershipApp</AssemblyName>
-    <StartupObject>MembershipApp.My.MyApplication</StartupObject>
+    <StartupObject>MembershipApp.Program</StartupObject>
     <MyType>WindowsForms</MyType>
     <OptionExplicit>On</OptionExplicit>
     <OptionStrict>Off</OptionStrict>

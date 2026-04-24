@@ -69,7 +69,11 @@ Namespace UserControls
         Private Sub LoadRenewals()
             Try
                 Dim stateId As Integer = If(cmbState.SelectedValue IsNot Nothing, Convert.ToInt32(cmbState.SelectedValue), 0)
-                Dim memberTypeId As Integer = If(cmbMemberType.SelectedValue IsNot Nothing, Convert.ToInt32(cmbMemberType.SelectedValue), 0)
+                Dim memberTypeId As Integer = 0
+
+                If cmbMemberType.SelectedValue IsNot Nothing Then
+                    memberTypeId = Convert.ToInt32(cmbMemberType.SelectedValue)
+                End If
                 Dim search As String = txtSearch.Text.Trim()
 
                 Dim dt As DataTable = DBHelper.ExecuteDataTable(
